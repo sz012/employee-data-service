@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import jakarta.persistence.Convert;
+import com.szymonpytel.employeedataservice.crypto.SsnConverter;
+
 import java.time.LocalDate;
 
 @Entity
@@ -30,6 +33,7 @@ public class Employee {
     private String gender;
 
     @Column(nullable = false)
+    @Convert(converter = SsnConverter.class)
     private String socialSecurityNumber;
 
     protected Employee() {
