@@ -4,7 +4,8 @@ import com.szymonpytel.employeedataservice.entity.Employee;
 import com.szymonpytel.employeedataservice.exception.EmployeeNotFoundException;
 import com.szymonpytel.employeedataservice.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class EmployeeService {
@@ -23,7 +24,7 @@ public class EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public Page<Employee> getAllEmployees(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 }

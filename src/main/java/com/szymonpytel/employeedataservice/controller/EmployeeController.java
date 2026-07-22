@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/employees")
@@ -37,9 +38,7 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<EmployeeResponse> getAllEmployees() {
-        return employeeService.getAllEmployees().stream()
-                .map(EmployeeResponse::from)
-                .toList();
+    public Page<EmployeeResponse> getAllEmployees(Pageable pageable) {
+        return employeeService.getAllEmployees(pageable).map(EmployeeResponse::from);
     }
 }
