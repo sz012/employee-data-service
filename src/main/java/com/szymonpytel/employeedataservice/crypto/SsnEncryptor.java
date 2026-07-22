@@ -20,6 +20,7 @@ public class SsnEncryptor {
     private static final String TRANSFORMATION = "AES/GCM/NoPadding";
     private static final int IV_LENGTH_BYTES = 12;
     private static final int TAG_LENGTH_BITS = 128;
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private final SecretKey secretKey;
 
@@ -31,7 +32,7 @@ public class SsnEncryptor {
     public String encrypt(String plaintext) {
         try {
             byte[] iv = new byte[IV_LENGTH_BYTES];
-            SecureRandom.getInstanceStrong().nextBytes(iv);
+            SECURE_RANDOM.nextBytes(iv);
 
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, new GCMParameterSpec(TAG_LENGTH_BITS, iv));
